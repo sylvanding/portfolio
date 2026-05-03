@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* Autofill background fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border-color: inherit;
+  -webkit-text-fill-color: inherit;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+body {
+  font-family: "Sora", sans-serif;
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.dark body {
+  color-scheme: dark;
+}
+
+input,
+select,
+optgroup,
+textarea,
+::file-selector-button {
+  background-color: inherit;
+}
+
+/* === Theme tokens === */
+@theme {
+  --font-sora: "Sora", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+
+  --color-error: #ef4444;
+  --color-primary-black: #000;
+  --color-primary-neutral: #404040;
+  --color-primary-white: #fff;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-500: #71717a;
+  --color-zinc-800: #27272a;
+
+  --color-surface: #fff;
+  --color-surface-alt: #000;
+  --color-surface-card: #000;
+  --color-on-surface: #000;
+  --color-on-surface-alt: #fff;
+  --color-border: #000;
+
+  --shadow-bottom: 4px 4px 0px #000;
+  --shadow-bottom-inv: 4px 4px 0px #fff;
+}
+
+/* === Animations === */
+@theme {
+  --animate-fly: circle 10s ease-in-out infinite;
+
+  @keyframes circle {
+    0% {
+      opacity: 1;
+      transform: rotate(0deg) translateX(200px) translateY(400px) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(360deg) translateX(100px) translateY(100px) rotate(-360deg);
+    }
+  }
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* === Custom utilities === */
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility text-stroke-* {
+  -webkit-text-stroke-width: calc(--value(integer) * 1px);
+  -webkit-text-stroke-color: --value(--color-*);
+  -webkit-text-stroke-color: --value([*]);
+}
+
+@utility shadow-custom {
+  box-shadow:
+    0 12px 42px -4px rgba(24, 39, 75, 0.12),
+    0 8px 18px -6px rgba(24, 39, 75, 0.12);
+}
+
+@utility animate-scroll-left {
+  animation: scroll-left var(--marquee-duration, 120s) linear infinite;
+}
+
+/* === Dark mode variant === */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* === Selection color === */
+::selection {
+  background-color: #000;
+  color: #fff;
+}
+
+.dark ::selection {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Always-dark sections need inverted selection regardless of theme */
+#about::selection,
+#about ::selection,
+#experience article::selection,
+#experience article ::selection,
+footer::selection,
+footer ::selection {
+  background-color: #fff;
+  color: #000;
+}
